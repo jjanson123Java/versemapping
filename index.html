@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bible Verse Reflection Tool</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.7.0/docx.umd.min.js"></script>
   <style>
     body {
       margin: 0;
@@ -123,16 +124,10 @@
     </form>
   </main>
 
-  <script src="docx.umd.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const downloadBtn = document.getElementById('downloadBtn');
       downloadBtn.addEventListener('click', async () => {
-        if (!window.docx) {
-          alert('Error: docx library not loaded.');
-          return;
-        }
-
         const verse = document.getElementById('verse').value.trim();
         const keywords = document.getElementById('keywords').value.trim();
         const crossrefs = document.getElementById('crossrefs').value.trim();
