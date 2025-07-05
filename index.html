@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bible Verse Mapping Tool</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #3b3b3b;
+    }
+
+    .banner {
+      background: url('banner.jpg') no-repeat center center;
+      background-size: cover;
+      padding: 50px 20px;
+      text-align: center;
+      color: #fff;
+      font-size: 28px;
+      font-weight: bold;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.85);
+    }
+
+    .content-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 10px;
+      margin: 0;
+    }
+
+    .side-image {
+      flex: 1;
+      background: url('images.jpg') no-repeat center center;
+      background-size: cover;
+    }
+
+    .side-image.right {
+      transform: scaleX(-1);
+    }
+
+    .container {
+      flex: 2;
+      background: rgba(255, 255, 255, 0.97);
+      padding: 40px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      border: 2px solid #e2d8c3;
+      border-top: none;
+      max-width: 600px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      color: #5a3e1b;
+      margin-bottom: 25px;
+      font-weight: bold;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      color: #4b3621;
+      font-size: 15px;
+      margin-top: 15px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 70px;
+      margin-top: 8px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      border: 1px solid #c1b8a2;
+      padding: 12px;
+      font-size: 14px;
+      background-color: #fdfcf9;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+      color: #3b3b3b;
+    }
+
+    .download-button {
+      display: block;
+      margin: 30px auto 10px auto;
+      padding: 12px 28px;
+      background-color: #8e5a2e;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 17px;
+      letter-spacing: 0.5px;
+    }
+
+    .download-button:hover {
+      background-color: #704823;
+    }
+
+    .how-to {
+      font-size: 12px;
+      color: #6a5841;
+      text-align: center;
+      margin-top: 30px;
+      font-style: italic;
+    }
+
+    .highlight {
+      color: #a86c3e;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="banner">
+    All Scripture is given by inspiration of God
+  </div>
+
+  <div class="content-wrapper">
+    <div class="side-image"></div>
+
+    <div class="container" id="capture-area">
+      <h1>Bible Verse Mapping Tool</h1>
+
+      <label for="verse">1. Verse (Write or Paste the Bible Verse)</label>
+      <textarea id="verse" placeholder="E.g., James 1:2-4"></textarea>
+
+      <label for="keywords">2. Key Words / Phrases (Highlight important words)</label>
+      <textarea id="keywords" placeholder="E.g., trials, perseverance, mature, complete"></textarea>
+
+      <label for="crossrefs">3. Cross-References (Related verses)</label>
+      <textarea id="crossrefs" placeholder="E.g., Romans 5:3-5, 1 Peter 1:6-7"></textarea>
+
+      <label for="application">4. Life Application (How does this apply to me?)</label>
+      <textarea id="application" placeholder="Write a personal or practical application here..."></textarea>
+
+      <label for="prayer">5. Prayer (Write a short prayer inspired by the verse)</label>
+      <textarea id="prayer" placeholder="E.g., Lord, help me find joy in trials knowing You're shaping me..."></textarea>
+
+      <button class="download-button" onclick="downloadStyledPDF()">Download Styled PDF</button>
+
+      <div class="how-to">
+        <p><span class="highlight">How to Use:</span> Reflect on each section as you fill it. This tool helps you meditate on God's Word and personalize your study through prayer and application.</p>
+      </div>
+    </div>
+
+    <div class="side-image right"></div>
+  </div>
+
+  <script>
+    function downloadStyledPDF() {
+      const captureElement = document.getElementById('capture-area');
+      html2canvas(captureElement).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pageWidth - 20;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+        pdf.addImage(imgData, 'PNG', 10, 10, pdfWidth, pdfHeight);
+        pdf.save('Bible_Mapping_Styled.pdf');
+      });
+    }
+  </script>
+
+</body>
+</html>
