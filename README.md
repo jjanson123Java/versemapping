@@ -23,7 +23,7 @@ A simple web-based tool to help users meditate on Bible verses, reflect through 
 
 1. Type or paste a Bible verse.
 2. Highlight key words, cross-references, and write your personal reflection.
-3. Click **Download My Reflection (DOCX)** to save your work.
+3. Click **Download My Reflection** to save your work.
 
 ## How to Set Up on GitHub Pages
 
@@ -36,7 +36,7 @@ A simple web-based tool to help users meditate on Bible verses, reflect through 
 ## Credits
 
 - Powered by docx.js
-- Design and development by (Your Name)
+- Design and development by James Arthur Janson
 
 ## Scripture Inspiration
 
